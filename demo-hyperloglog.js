@@ -37,5 +37,25 @@ async function demoHyperloglog() {
   const total3Days = await redis.pfcount(keyMerged);
   console.log(`Số user duy nhất trong 3 ngày qua: ${total3Days}`);
   
+  await redis.quit();
 }
 demoHyperloglog();
+
+/*
+📌 1. Đếm số lượng người dùng duy nhất truy cập website mỗi ngày
+Mô tả: Bạn chỉ cần biết có bao nhiêu người khác nhau truy cập, không cần lưu ID cụ thể.
+
+await redis.pfadd("visitors:2025-07-31", "user1", "user2", "user3");
+const count = await redis.pfcount("visitors:2025-07-31");
+console.log(`Số người truy cập hôm nay: ${count}`);
+*/
+
+/*
+📌 2. Đếm người dùng tương tác với bài viết (like, comment, share không quan trọng, chỉ cần biết số người)
+await redis.pfadd("post:1234:interactions", "userA");
+await redis.pfadd("post:1234:interactions", "userB");
+await redis.pfadd("post:1234:interactions", "userC");
+
+const interactedUsers = await redis.pfcount("post:1234:interactions");
+console.log(`Số người đã tương tác bài viết 1234: ${interactedUsers}`);
+*/
